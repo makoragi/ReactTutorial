@@ -2,19 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 class Square extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: null
-        };
-    }
+    // ゲーム状態を管理していないので不要
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         value: null
+    //     };
+    // }
     render() {
       return (
         <button
             className="square"
-            onClick={() => this.setState({value: 'X'}) }
+            // onClickもProps経由で渡してもらう
+            onClick={() => this.props.onClick() } 
+            //値はProps経由で渡されたvalue
         >
-          {this.state.value}
+          {this.props.value}
         </button>
       );
     }
@@ -27,8 +30,21 @@ class Square extends React.Component {
             squares: Array(9).fill(null),
         }
     }
+
+    handleClick(i) {
+        // ミューテートを伴わないデータの変更
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({squares: squares});
+    }
+
     renderSquare(i) {
-      return <Square value={this.state.squares[i]}/>;
+        return(
+            <Square
+                value={this.state.squares[i]} //Boardで管理している配列から値を渡す
+                onClick={() => this.handleClick(i)} //クリックされたときこれ叩けよと言う指示
+            />
+        );
     }
   
     render() {
