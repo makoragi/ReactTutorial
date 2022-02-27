@@ -1,26 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-class Square extends React.Component {
-    // ゲーム状態を管理していないので不要
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         value: null
-    //     };
-    // }
-    render() {
-      return (
+
+function Square(props) {
+    return (
         <button
             className="square"
             // onClickもProps経由で渡してもらう
-            onClick={() => this.props.onClick() } 
+            onClick={() => props.onClick() } 
             //値はProps経由で渡されたvalue
         >
-          {this.props.value}
+          {props.value}
         </button>
-      );
-    }
+    );
   }
   
   class Board extends React.Component {
