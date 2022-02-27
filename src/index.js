@@ -27,6 +27,10 @@ function Square(props) {
     handleClick(i) {
         // ミューテートを伴わないデータの変更
         const squares = this.state.squares.slice();
+        // 勝者が決まっていたり、すでに埋めているマスなら何もしない
+        if (calculateWinner(squares) || squares[i]) {
+            return;
+        }
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
             squares: squares,
